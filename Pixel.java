@@ -18,6 +18,18 @@ public class Pixel {
     return blue;
   }
 
+  public void setRed(int newVal){
+    red = newVal;
+  }
+
+  public void setGreen(int newVal){
+    green = newVal;
+  }
+
+  public void setBlue(int newVal){
+    blue = newVal;
+  }
+
   public String toString(){
     System.out.println("("+red+","+green+","+blue+")");
     return "";
