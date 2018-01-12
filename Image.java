@@ -44,18 +44,19 @@ public class Image {
     }
   }
 
-  public void to_string(){
-    System.out.println("Width: " + pixels.length);
-    System.out.println("Height: " + pixels[0].length);
+  public String toString(){
+    System.out.println("Width: " + pixels[0].length);
+    System.out.println("Height: " + pixels.length);
     System.out.println("Max Color Value: " + maxVal);
     for (int i = 0; i < pixels.length; i++){
       for (int j = 0; j < pixels[i].length; j++){
         if (pixels[i][j] != null){
-          pixels[i][j].to_string();
+          pixels[i][j].toString();
         }
       }
       System.out.println();
     }
+    return "";
   }
 
   private Pixel[][] pixels;

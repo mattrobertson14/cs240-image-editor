@@ -18,8 +18,9 @@ public class Pixel {
     return blue;
   }
 
-  public void to_string(){
+  public String toString(){
     System.out.println("("+red+","+green+","+blue+")");
+    return "";
   }
 
   private int red;

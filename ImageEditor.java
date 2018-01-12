@@ -8,7 +8,7 @@ public class ImageEditor {
 
   public static void main(String[] args){
     try {
-      File file = new File("pictures/audio.ppm");
+      File file = new File(args[0]);
       Scanner sc = new Scanner(file);
       String next;
       next = sc.next();
@@ -32,7 +32,7 @@ public class ImageEditor {
       }
       Image img = new Image(width, height, maxVal);
       img.makePixels(sc);
-      img.to_string();
+      img.toString();
     } catch (Exception ex) {
       ex.printStackTrace();
     }
