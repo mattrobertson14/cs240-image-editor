@@ -1,5 +1,8 @@
 import java.util.Scanner;
 import java.io.*;
+import javax.swing.*;
+import java.awt.Desktop;
+
 
 public class ImageEditor {
   ImageEditor(){
@@ -8,12 +11,77 @@ public class ImageEditor {
 
   public static void main(String[] args){
     try {
-      if (args.length < 2){
-        System.out.println("TOO FEW ARGUMENTS:\nPlease enter an input file AND an output file");
+
+      JFrame frame1 = new JFrame("Transformation Selection");
+      frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+      String inputFile = (String)JOptionPane.showInputDialog(
+        frame1,
+        "Enter Input File Path:",
+        "Customized Dialog",
+        JOptionPane.PLAIN_MESSAGE,
+        null,
+        null,
+        null
+      );
+
+      if (inputFile == null || !(inputFile.length() > 0)){
         System.exit(0);
       }
-      File input = new File(args[0]);
-      File output = new File(args[1]);
+
+      frame1.dispose();
+
+      JFrame frame2 = new JFrame("Transformation Selection");
+      frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+      String outputFile = (String)JOptionPane.showInputDialog(
+        frame2,
+        "Enter Output File Path:",
+        "Customized Dialog",
+        JOptionPane.PLAIN_MESSAGE,
+        null,
+        null,
+        null
+      );
+
+      if (outputFile == null || !(outputFile.length() > 0)){
+        System.exit(0);
+      }
+
+      frame2.dispose();
+
+      Object[] possibilities = {
+        "Grayscale",
+        "Invert",
+        "Emboss",
+        "Motionblur 10"
+      };
+
+      JFrame frame3 = new JFrame("Transformation Selection");
+      frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+      String s = (String)JOptionPane.showInputDialog(
+        frame3,
+        "Choose Transformation:",
+        "Customized Dialog",
+        JOptionPane.PLAIN_MESSAGE,
+        null,
+        possibilities,
+        "Grayscale"
+      );
+
+      frame3.dispose();
+
+      if (s == null || !(s.length() > 0)){
+        System.exit(0);
+      }
+
+      /*if (args.length < 2){
+        System.out.println("TOO FEW ARGUMENTS:\nPlease enter an input file AND an output file");
+        System.exit(0);
+      }*/
+      File input = new File(inputFile);
+      File output = new File(outputFile);
       Scanner sc = new Scanner(input);
       PrintWriter pw = new PrintWriter(output);
       String next;
@@ -39,28 +107,28 @@ public class ImageEditor {
       Image img = new Image(width, height, maxVal);
       img.makePixels(sc);
 
-      if (args.length < 3){
-        System.out.println("TOO FEW ARGUMENTS:\nPlease enter a transformation type (grayscale, invert, emboss, or motionblur)");
-        System.exit(0);
-      }
+      //if (args.length < 3){
+      //  System.out.println("TOO FEW ARGUMENTS:\nPlease enter a transformation type (grayscale, invert, emboss, or motionblur)");
+      //  System.exit(0);
+      //}
 
-      switch(args[2]){
-        case "grayscale" :
+      switch(s){
+        case "Grayscale" :
           img.grayscale();
           break;
-        case "invert" :
+        case "Invert" :
           img.invert();
           break;
-        case "emboss" :
+        case "Emboss" :
           img.emboss();
           break;
-        case "motionblur" :
-          if (args.length < 4){
+        case "Motionblur 10" :
+          /*if (args.length < 4){
             System.out.println("TOO FEW ARGUMENTS:\nPlease enter a number for MotionBlur to work");
             System.exit(0);
-          }
-          int x = Integer.parseInt(args[3]);
-          img.motionblur(x);
+          }*/
+          //int x = Integer.parseInt(args[3]);
+          img.motionblur(10);
           break;
         default :
           break;
@@ -70,6 +138,14 @@ public class ImageEditor {
 
       sc.close();
       pw.close();
+
+      if(!Desktop.isDesktopSupported()){
+          System.out.println("Desktop is not supported");
+          return;
+      }
+
+      Desktop desktop = Desktop.getDesktop();
+      if(output.exists()) desktop.open(output);
     } catch (Exception ex) {
       ex.printStackTrace();
     }
