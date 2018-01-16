@@ -31,12 +31,12 @@ public class ImageEditor {
 
       frame1.dispose();
 
-      JFrame frame2 = new JFrame("Transformation Selection");
+      JFrame frame2 = new JFrame("Output File Name");
       frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
       String outputFile = (String)JOptionPane.showInputDialog(
         frame2,
-        "Enter Output File Path:",
+        "Enter Output File Name:",
         "Customized Dialog",
         JOptionPane.PLAIN_MESSAGE,
         null,
